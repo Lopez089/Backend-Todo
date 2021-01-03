@@ -55,3 +55,21 @@ const updateTodo = async( req: Request, res: Response):Promise <void> =>{
         throw Error
     }
 }
+
+// delate
+
+const delateTodo = async (req:Request, res:Response): Promise <void> =>{
+    try{
+        const delateTodo: ITodo| null = await Todo.findByIdAndRemove(req.param.id) 
+        const allTodos : ITodo[] = Todo.find()
+        res.status(200).json({
+            message: 'Todo deleted',
+            todo: delateTodo, 
+            todos: allTodos
+        })
+    }catch(Error){
+        throw Error
+    }
+}
+
+export {getTodo, addTodo, updateTodo, delateTodo}
