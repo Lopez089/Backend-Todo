@@ -4,7 +4,7 @@ import Todo from '../../models/index'
 
 // get
 
-const getTodo = async (req: Request, res: Response): Promise<void> =>{
+const getTodos = async (req: Request, res: Response): Promise<void> =>{
     try{
         const todos: ITodo[] = await Todo.find()
         res.status(200).json({todos})
@@ -58,7 +58,7 @@ const updateTodo = async( req: Request, res: Response):Promise <void> =>{
 
 // delate
 
-const delateTodo = async (req:Request, res:Response): Promise <void> =>{
+const deleteTodo = async (req:Request, res:Response): Promise <void> =>{
     try{
         const delateTodo: ITodo| null = await Todo.findByIdAndRemove(req.param.id) 
         const allTodos : ITodo[] = Todo.find()
@@ -72,4 +72,4 @@ const delateTodo = async (req:Request, res:Response): Promise <void> =>{
     }
 }
 
-export {getTodo, addTodo, updateTodo, delateTodo}
+export {getTodos, addTodo, updateTodo, deleteTodo}
