@@ -1,7 +1,7 @@
 import {ITodo} from './../types/index'
 import {model, Schema} from "mongoose"
 
-const todoShema : Schema = new Schema(
+const todoSchema : Schema = new Schema(
     {
         name:{
             type:String,
@@ -21,4 +21,4 @@ const todoShema : Schema = new Schema(
     }
 )
 
-export default model<ITodo> ( 'Todo', todoShema)
+export default model<ITodo> ( "Todo", todoSchema)

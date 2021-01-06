@@ -18,7 +18,8 @@ const getTodos = async (req: Request, res: Response): Promise<void> =>{
 
 const addTodo = async (req:Request, res: Response): Promise<void> =>{
     try{
-        const body : ITodo = req.body as Pick<ITodo, "name" | "description" | 'status'>
+        const body = req.body as Pick<ITodo, "name" | "description" | 'status'>
+        
         const todo: ITodo = new Todo({
             name: body.name,
             description: body.description,
@@ -26,7 +27,7 @@ const addTodo = async (req:Request, res: Response): Promise<void> =>{
         })
         const newTodo : ITodo = await todo.save()
         const allTodos : ITodo[] = await Todo.find()
-        res.status(200).json({
+        res.status(201).json({
             mesage: 'Todo added',
             todo: newTodo,
             todos: allTodos
@@ -41,16 +42,17 @@ const addTodo = async (req:Request, res: Response): Promise<void> =>{
 const updateTodo = async( req: Request, res: Response):Promise <void> =>{
     try{
         const {params: id, body }=req
-        const updateTodo : ITodo | null = await Todo.findByIdAndUpdate({
-            _id: id
-        }, 
-        body)
-        const allTodos : ITodo[] = await Todo.find()
-        res.status(200).json({
-            message: 'Todo update',
-            todo: updateTodo,
-            todos: allTodos
-        })
+        console.log(id)
+        // const updateTodo : ITodo | null = await Todo.findByIdAndUpdate({
+        //     _id: id
+        // }, 
+        // body)
+        // const allTodos : ITodo[] = await Todo.find()
+        // res.status(200).json({
+        //     message: 'Todo update',
+        //     todo: updateTodo,
+        //     todos: allTodos
+        // })
     }catch(Error){
         throw Error
     }
@@ -60,7 +62,7 @@ const updateTodo = async( req: Request, res: Response):Promise <void> =>{
 
 const deleteTodo = async (req:Request, res:Response): Promise <void> =>{
     try{
-        const delateTodo: ITodo| null = await Todo.findByIdAndRemove(req.param.id) 
+        const delateTodo: ITodo| null = await Todo.findByIdAndRemove(req.params.id) 
         const allTodos : ITodo[] = Todo.find()
         res.status(200).json({
             message: 'Todo deleted',
