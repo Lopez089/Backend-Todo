@@ -1,11 +1,12 @@
 {
   "name": "backendtodo",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Server of app todos",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\""
+    "start": "node dist/js/index",
+    "dev":"concurrently \"tsc -w\" \"nodemon dist/js/app.js\""
   },
   "keywords": [
     "todo",
