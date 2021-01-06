@@ -59,8 +59,9 @@ const updateTodo = async( req: Request, res: Response):Promise <void> =>{
 
 const deleteTodo = async (req:Request, res:Response): Promise <void> =>{
     try{
+        
         const delateTodo: ITodo| null = await Todo.findByIdAndRemove(req.params.id) 
-        const allTodos : ITodo[] = Todo.find()
+        const allTodos : ITodo[] = await Todo.find()
         res.status(200).json({
             message: 'Todo deleted',
             todo: delateTodo, 
