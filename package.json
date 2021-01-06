@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/js/index",
+    "start": "node dist/js/app",
     "dev":"concurrently \"tsc -w\" \"nodemon dist/js/app.js\""
   },
   "keywords": [
