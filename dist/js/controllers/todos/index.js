@@ -32,7 +32,8 @@ const addTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const todo = new index_1.default({
             name: body.name,
             description: body.description,
-            status: body.status
+            status: body.status,
+            folder: body.folder
         });
         const newTodo = yield todo.save();
         const allTodos = yield index_1.default.find();

@@ -14,6 +14,10 @@ const todoSchema : Schema = new Schema(
         status:{
             type:Boolean,
             required:true
+        },
+        folder:{
+            type:String,
+            required:true
         }
 
     }, {
