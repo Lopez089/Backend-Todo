@@ -1,9 +1,11 @@
 import {Router} from 'express'
-import {getTodos, addTodo, updateTodo, deleteTodo} from './../controllers/todos/index'
+import {getTodos, addTodo, updateTodo, deleteTodo, getFolderTodos} from './../controllers/todos/index'
 
 const router: Router = Router()
 
 router.get('/todos', getTodos)
+
+router.get('/folder-todos', getFolderTodos)
 
 router.post('/add-todo', addTodo)
 

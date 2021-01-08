@@ -73,4 +73,18 @@ const deleteTodo = async (req:Request, res:Response): Promise <void> =>{
     }
 }
 
-export {getTodos, addTodo, updateTodo, deleteTodo}
+const getFolderTodos = async (req:Request, res:Response):Promise<void>=>{
+    try{
+        const paramsFolder: any  = req.query.folder
+        const getFolderTodos: ITodo[] = await Todo.find({folder: paramsFolder})
+        res.status(200).json({
+            message:`Todos folder ${paramsFolder}`,
+            todos: getFolderTodos
+        })
+    }
+    catch(Error){
+        throw Error
+    }
+}
+
+export {getTodos, addTodo, updateTodo, deleteTodo, getFolderTodos}

@@ -83,3 +83,17 @@ const deleteTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.deleteTodo = deleteTodo;
+const getFolderTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const paramsFolder = req.query.folder;
+        const getFolderTodos = yield index_1.default.find({ folder: paramsFolder });
+        res.status(200).json({
+            message: `Todos folder ${paramsFolder}`,
+            todos: getFolderTodos
+        });
+    }
+    catch (Error) {
+        throw Error;
+    }
+});
+exports.getFolderTodos = getFolderTodos;
