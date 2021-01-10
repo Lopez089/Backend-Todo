@@ -1,6 +1,7 @@
-import {Response, Request} from 'express'
+import {Response, Request, query} from 'express'
 import {ITodo} from './../../types/index'
 import Todo from '../../models/index'
+import { ParsedUrlQuery } from 'querystring'
 
 // get
 
@@ -75,7 +76,7 @@ const deleteTodo = async (req:Request, res:Response): Promise <void> =>{
 
 const getFolderTodos = async (req:Request, res:Response):Promise<void>=>{
     try{
-        const paramsFolder: any  = req.query.folder
+        const paramsFolder: string  = req.query.folder as string
         const getFolderTodos: ITodo[] = await Todo.find({folder: paramsFolder})
         res.status(200).json({
             message:`Todos folder ${paramsFolder}`,
@@ -87,4 +88,24 @@ const getFolderTodos = async (req:Request, res:Response):Promise<void>=>{
     }
 }
 
-export {getTodos, addTodo, updateTodo, deleteTodo, getFolderTodos}
+const searchTodo = async (req: Request, res: Response): Promise<void> =>{
+    try{
+        const paramsSearch : string = req.query.search as string
+        const searchTodos : ITodo[] = await Todo.find({ name: { $regex: `${paramsSearch}`, $options: "i" }})
+        let searchArray : any[] = []
+        
+        await searchTodos.forEach(todo => {
+            searchArray.push(todo.name)
+        });
+
+        res.status(200).json({
+            message: `Search ${paramsSearch}`,
+            search:  searchArray
+        })
+    }
+    catch(Error){
+        throw Error
+    }
+}
+
+export {getTodos, addTodo, updateTodo, deleteTodo, getFolderTodos, searchTodo}

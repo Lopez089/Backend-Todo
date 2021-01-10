@@ -97,3 +97,21 @@ const getFolderTodos = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getFolderTodos = getFolderTodos;
+const searchTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const paramsSearch = req.query.search;
+        const searchTodos = yield index_1.default.find({ name: { $regex: `${paramsSearch}`, $options: "i" } });
+        let searchArray = [];
+        yield searchTodos.forEach(todo => {
+            searchArray.push(todo.name);
+        });
+        res.status(200).json({
+            message: `Search ${paramsSearch}`,
+            search: searchArray
+        });
+    }
+    catch (Error) {
+        throw Error;
+    }
+});
+exports.searchTodo = searchTodo;

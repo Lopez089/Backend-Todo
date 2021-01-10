@@ -9,7 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
 const bodyParser = require('body-parser');
 const app = express_1.default();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.use(cors_1.default());
 app.use(bodyParser.json());
 app.use(index_1.default);
