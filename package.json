@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Server of app todos",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/js/app",
