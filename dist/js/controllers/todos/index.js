@@ -20,12 +20,12 @@ const getTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(200).json({ todos });
     }
     catch (_a) {
-        (Error);
+        Error;
         throw Error;
     }
 });
 exports.getTodos = getTodos;
-// add 
+// add
 const addTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
@@ -33,14 +33,15 @@ const addTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             name: body.name,
             description: body.description,
             status: body.status,
-            folder: body.folder
+            folder: body.folder,
         });
         const newTodo = yield todo.save();
         const allTodos = yield index_1.default.find();
         res.status(201).json({
-            mesage: 'Todo added',
+            mesage: "Todo added",
+            status: res.status,
             todo: newTodo,
-            todos: allTodos
+            todos: allTodos,
         });
     }
     catch (Error) {
@@ -53,13 +54,13 @@ const updateTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { params: id, body } = req;
         const updateTodo = yield index_1.default.findByIdAndUpdate({
-            _id: id.id
+            _id: id.id,
         }, body);
         const allTodos = yield index_1.default.find();
         res.status(200).json({
-            message: 'Todo update',
+            message: "Todo update",
             todo: updateTodo,
-            todos: allTodos
+            todos: allTodos,
         });
     }
     catch (Error) {
@@ -73,9 +74,9 @@ const deleteTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const delateTodo = yield index_1.default.findByIdAndRemove(req.params.id);
         const allTodos = yield index_1.default.find();
         res.status(200).json({
-            message: 'Todo deleted',
+            message: "Todo deleted",
             todo: delateTodo,
-            todos: allTodos
+            todos: allTodos,
         });
     }
     catch (Error) {
@@ -89,7 +90,7 @@ const getFolderTodos = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const getFolderTodos = yield index_1.default.find({ folder: paramsFolder });
         res.status(200).json({
             message: `Todos folder ${paramsFolder}`,
-            todos: getFolderTodos
+            todos: getFolderTodos,
         });
     }
     catch (Error) {
@@ -100,14 +101,16 @@ exports.getFolderTodos = getFolderTodos;
 const searchTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const paramsSearch = req.query.search;
-        const searchTodos = yield index_1.default.find({ name: { $regex: `${paramsSearch}`, $options: "i" } });
+        const searchTodos = yield index_1.default.find({
+            name: { $regex: `${paramsSearch}`, $options: "i" },
+        });
         let searchArray = [];
-        yield searchTodos.forEach(todo => {
+        yield searchTodos.forEach((todo) => {
             searchArray.push(todo.name);
         });
         res.status(200).json({
             message: `Search ${paramsSearch}`,
-            search: searchArray
+            search: searchArray,
         });
     }
     catch (Error) {
